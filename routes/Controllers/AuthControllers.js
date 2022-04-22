@@ -16,7 +16,7 @@ module.exports = {
           res.status(401).json({ msg: "email not found in database" });
         } else {
           if (bcrypt.compareSync(password, user.password)) {
-            let token = jwt.sign({ user: user }, "secret", {
+            let token = jwt.sign({ email: user.email }, "secret", {
               expiresIn: "7d",
             });
 
