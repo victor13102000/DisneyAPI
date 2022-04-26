@@ -16,7 +16,7 @@ Media.init(
     },
     dateCreate: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     qualification: {
       type: DataTypes.INTEGER,
@@ -27,7 +27,7 @@ Media.init(
       },
     },
     associatedCharacters: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: true,
     },
   },
