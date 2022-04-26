@@ -24,6 +24,7 @@ const CharacterCreate = (req, res) => {
   }
 };
 
+// eliminacion de personaje
 const CharacterDelete = (req, res) => {
   try {
     Personage.destroy({ where: { name: req.body.name } })
@@ -71,7 +72,7 @@ const CharacterEdits = async (req, res) => {
     res.status(404).json(error);
   }
 };
-
+//lista de personaje que muestra nombre e imagen.
 const characterList = async (req, res) => {
   try {
     const list = await Personage.findAll();
@@ -86,7 +87,7 @@ const characterList = async (req, res) => {
     res.status(200).json(listC);
   } catch (error) {}
 };
-
+// descripcion de personaje.
 const characterDescription = async (req, res) => {
   try {
     const id = req.params.id;
@@ -98,6 +99,8 @@ const characterDescription = async (req, res) => {
     res.status(404).json(error);
   }
 };
+
+// busqueda de personaje por querys
 const characterSearch = async (req, res) => {
   try {
     const name = req.query.name;
