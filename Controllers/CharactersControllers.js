@@ -1,4 +1,5 @@
 const Personage = require("../models/Personage");
+const Media = require("../models/media");
 
 //Creacion de personaje.
 
@@ -98,39 +99,63 @@ const characterDescription = async (req, res) => {
   }
 };
 const characterSearch = async (req, res) => {
-    try {
-        const name = req.query.name;
-        const age = req.query.age;
-    
-        if(name){
-            try {
-             
-              const character = await Personage.findOne({ where: { name: name } });
-          
-              if (!character) res.status(500).json({ msg: "character that doesn't exist" });
-          
-              res.status(200).json(character);
-            } catch (error) {
-                res.status(500).json(error)
-            }
-        }
+  try {
+    const name = req.query.name;
+    const age = req.query.age;
+    const idMovie = req.query.idMovie;
+    const weight = req.query.weight;
 
-        if(age){
-            try {
-                const character = await Personage.findAll({ where: { age: age } });
-          
-              if (!character) res.status(500).json({ msg: "character that doesn't exist" });
-          
-              res.status(200).json(character);
-            } catch (error) {
-                res.status(500).json(error)
-            }
-        }
-    } catch (error) {
-        res.status(404).json(error)
+    if (name) {
+      try {
+        const character = await Personage.findOne({ where: { name: name } });
+
+        if (!character)
+          res.status(500).json({ msg: "character that doesn't exist" });
+
+        res.status(200).json(character);
+      } catch (error) {
+        res.status(500).json(error);
+      }
     }
-};
 
+    if (age) {
+      try {
+        const character = await Personage.findAll({ where: { age: age } });
+
+        if (!character)
+          res.status(500).json({ msg: "character that doesn't exist" });
+
+        res.status(200).json(character);
+      } catch (error) {
+        res.status(500).json(error);
+      }
+    }
+    if (weight) {
+      try {
+        const character = await Personage.findAll({ where: { weight: weight } });
+
+        if (!character)
+          res.status(500).json({ msg: "character that doesn't exist" });
+
+        res.status(200).json(character);
+      } catch (error) {
+        res.status(500).json(error);
+      }
+    }
+    if (idMovie) {
+      const media = await Media.findByPk(idMovie);
+
+      let characters = media.associatedCharacters.map((character) => {
+        return Personage.findByPk(character);
+      });
+      const personaje = await Promise.all(characters);
+
+      res.status(200).json(personaje);
+    }
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
 
 module.exports = {
   CharacterCreate,

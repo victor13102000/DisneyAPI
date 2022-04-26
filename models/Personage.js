@@ -24,8 +24,8 @@ Personage.init(
       allowNull: false,
     },
     mediaAssociated: {
-      type: DataTypes.STRING,
-      defaultValue: false,
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      defaultValue: [],
     },
     image: {
       type: DataTypes.STRING,
