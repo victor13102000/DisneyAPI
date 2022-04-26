@@ -1,9 +1,9 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 
-export const verifyToken = async (req, res, next) => {
+const verifyToken = async (req, res, next) => {
   try {
-    const token = req.headers["x-acces-token"];
+    const token = req.headers["x-access-token"];
 
     if (!token) res.status(403).json({ msg: "No token provider" });
   
@@ -24,3 +24,4 @@ export const verifyToken = async (req, res, next) => {
   }
 };
 
+module.exports = verifyToken;

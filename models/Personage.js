@@ -25,7 +25,7 @@ Personage.init(
     },
     mediaAssociated: {
       type: DataTypes.STRING,
-      defaultValue: "user",
+      defaultValue: false,
     },
     image: {
       type: DataTypes.STRING,
