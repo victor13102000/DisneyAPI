@@ -15,7 +15,7 @@ Media.init(
       allowNull: false,
     },
     dateCreate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: true,
     },
     qualification: {

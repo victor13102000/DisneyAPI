@@ -27,7 +27,7 @@ const CharacterCreate = (req, res) => {
 // eliminacion de personaje
 const CharacterDelete = (req, res) => {
   try {
-    Personage.destroy({ where: { name: req.body.name } })
+    Personage.destroy({ where: { id: req.body.id } })
       .then(
         res.status(200).json({
           msg: "character delete",
@@ -93,8 +93,25 @@ const characterDescription = async (req, res) => {
     const id = req.params.id;
 
     const character = await Personage.findByPk(id);
+    
+    let movie= character.mediaAssociated.map(media=>{
+      return Media.findByPk(media)
+    })
 
-    res.status(200).json(character);
+    const media = await Promise.all(movie)
+
+    const result= {
+      atributes: {
+        name: character.name, 
+        age:character.age,
+        weight: character.weight,
+        history: character.history,
+        image: character.image,
+      },
+      mediaAssociated: media
+    }
+
+    res.status(200).json(result);
   } catch (error) {
     res.status(404).json(error);
   }
@@ -105,7 +122,7 @@ const characterSearch = async (req, res) => {
   try {
     const name = req.query.name;
     const age = req.query.age;
-    const idMovie = req.query.idMovie;
+    const idMovie = req.query.movies;
     const weight = req.query.weight;
 
     if (name) {
