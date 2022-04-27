@@ -12,5 +12,6 @@ media.delete("/delete", verifyToken,controllersMedia.mediaDelete );
 media.put("/edit",verifyToken, controllersMedia.mediaEdits);
 media.get("/",verifyToken, controllersMedia.listMovies);
 media.get("/details/:id",verifyToken, controllersMedia.movieDetails);
+media.get("/media?",verifyToken, controllersMedia.mediaSearch);
 
 module.exports = media;
